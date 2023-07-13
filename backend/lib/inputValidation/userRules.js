@@ -8,7 +8,7 @@ exports.userValidationRules = {
             .isEmail()
             .trim()
             .withMessage("Bitte geben Sie eine gültige E-Mail-Adresse ein"),
-        check("userName")
+        check("username")
             .escape()
             .trim()
             .notEmpty()
@@ -27,7 +27,7 @@ exports.userValidationRules = {
     ],
 
     login: [
-        check("userName")
+        check("username")
             .escape()
             .trim()
             .notEmpty()
