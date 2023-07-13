@@ -14,7 +14,6 @@ const { authenticateToken } = require("../middleware/userValidation");
 
 const router = express.Router();
 
-/* GET users listing. */
 router.get("/", authenticateToken, function (req, res, next) {
     res.send("Welcome to the bookt server");
 });
