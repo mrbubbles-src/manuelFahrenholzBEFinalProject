@@ -5,7 +5,7 @@ const bookSchema = new mongoose.Schema({
     genre: { type: String },
     description: { type: String },
     cover: { type: String },
-    published: { type: String },
+    published: { type: Number },
     olid: { type: String },
 });
 
