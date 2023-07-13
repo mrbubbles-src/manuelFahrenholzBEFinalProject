@@ -1,4 +1,4 @@
-const { saveBook } = require("../model/book.model");
+const { saveBook, getAllBooks, deleteBook } = require("../model/book.model");
 
 const secretTokenPW = process.env.TOKEN_SECRET;
 
