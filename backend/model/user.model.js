@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { UserRoles } = require("../lib/security/roles");
 const { userNotFound } = require("../middleware/errorHandler");
-const User = require("./userSchema");
+const User = require("./user.schema");
 
 async function createUser(userData) {
     return await User.create(userData);
@@ -12,21 +12,19 @@ async function authenticateUser(username, password) {
     if (!user) {
         return null;
     }
+
+    const isPasswordValid = await user.authenticate(password);
+
+    if (!isPasswordValid) {
+        return null;
+    }
+
+    return user;
 }
-
-/* Alle User anzeigen*/
-// async function findAllUsers() {
-//     return await User.find({});
-// }
-
-/* einzelne User anzeigen */
-// async function findSingleUser(id) {
-//     await userNotFound(User, id);
-//     return await User.findById(id);
-// }
 
 async function updateUser(id, data) {
     await userNotFound(User);
+    // rollen abfrage für update von user oder admin rolle
     return await User.findOneAndUpdate({ _id: id }, data, { new: true });
 }
 
@@ -45,8 +43,6 @@ module.exports = {
     User,
     createUser,
     authenticateUser,
-    // findAllUsers,
-    // findSingleUser,
     updateUser,
     deleteUser,
 };

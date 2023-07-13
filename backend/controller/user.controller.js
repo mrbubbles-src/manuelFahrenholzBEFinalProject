@@ -61,9 +61,12 @@ async function httpDeleteUser(req, res, next) {
     }
 }
 
+async function httpSaveBookToReadList(req, res, next) {}
+
 module.exports = {
     httpCreateUser,
     httpAuthenticateUser,
     httpUpdateUser,
     httpDeleteUser,
+    httpSaveBookToReadList,
 };

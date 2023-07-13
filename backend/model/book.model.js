@@ -1,8 +1,25 @@
 const mongoose = require("mongoose");
 const Book = require("./book.schema");
 
-async function createBook(bookData) {
+async function getAllBooks() {
+    try {
+        return await Book.find({});
+    } catch (error) {
+        throw new Error(error);
+    }
+}
+
+async function saveBook(bookData) {
     return await Book.create(bookData);
 }
 
-module.exports = { createBook };
+async function deleteBook(id) {
+    try {
+        const book = await Book.findByIdAndRemove(id);
+        return book;
+    } catch (error) {
+        throw new Error(error);
+    }
+}
+
+module.exports = { saveBook, getAllBooks, deleteBook };

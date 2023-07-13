@@ -9,7 +9,9 @@ require("dotenv").config();
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
-const errorHandler = require("./middleware/errorHandler");
+const booksRouter = require("./routes/books");
+
+const { errorHandler } = require("./middleware/errorHandler");
 
 const app = express();
 
@@ -42,6 +44,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+app.use("/books", booksRouter);
 
 app.use(errorHandler);
 
