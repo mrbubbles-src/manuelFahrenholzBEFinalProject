@@ -1,5 +1,8 @@
 const { validateToken } = require("../lib/security/token");
 const { userRoles } = require("../lib/security/roles");
+require("dotenv").config();
+
+const secretTokenPW = process.env.TOKEN_SECRET;
 
 async function authenticateToken(req, res, next) {
     const token = req.headers.authorization;
@@ -9,7 +12,7 @@ async function authenticateToken(req, res, next) {
         return next(error);
     }
     try {
-        const decodedToken = await validateToken(token, "H6m2wbqM0CZwoUVxS6fS");
+        const decodedToken = await validateToken(token, secretTokenPW);
         req.user = decodedToken;
         next();
     } catch (error) {

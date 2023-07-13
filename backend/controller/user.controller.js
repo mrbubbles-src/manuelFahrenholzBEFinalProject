@@ -20,8 +20,8 @@ async function httpCreateUser(req, res, next) {
 }
 async function httpAuthenticateUser(req, res, next) {
     try {
-        const { username, password } = req.body;
-        const user = await authenticateUser(username, password);
+        const { userName, password } = req.body;
+        const user = await authenticateUser(userName, password);
         if (!user) {
             const error = new Error("Falsches Passwort oder Benutzername");
             error.statusCode = 400;
@@ -29,7 +29,7 @@ async function httpAuthenticateUser(req, res, next) {
         }
         const securityToken = await createSecurityToken(
             {
-                username: user.username,
+                userName: user.userName,
                 password: user.password,
                 role: user.role,
             },

@@ -7,8 +7,8 @@ async function createUser(userData) {
     return await User.create(userData);
 }
 
-async function authenticateUser(username, password) {
-    const user = await User.findOne({ username });
+async function authenticateUser(userName, password) {
+    const user = await User.findOne({ userName });
     if (!user) {
         return null;
     }

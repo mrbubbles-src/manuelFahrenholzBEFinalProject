@@ -20,7 +20,7 @@ router.get("/", authenticateToken, function (req, res, next) {
 });
 
 router.post(
-    "signup",
+    "/signup",
     validateInputs(userValidationRules.signup),
     httpCreateUser
 );
