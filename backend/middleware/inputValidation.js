@@ -15,4 +15,4 @@ function validateInputs(inputsToValidate) {
         },
     ];
 }
-module.exports(validateInputs);
+module.exports = { validateInputs };
