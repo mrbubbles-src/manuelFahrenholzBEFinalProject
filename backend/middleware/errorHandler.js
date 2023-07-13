@@ -17,4 +17,4 @@ function errorHandler(err, req, res, next) {
     });
 }
 
-module.exports = (userNotFound, errorHandler);
+module.exports = { userNotFound, errorHandler };
