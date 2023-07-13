@@ -4,13 +4,18 @@ const {
     httpAuthenticateUser,
     httpUpdateUser,
     httpDeleteUser,
+    httpSaveBookToReadList,
 } = require("../controller/user.controller");
 
 const { userValidationRules } = require("../lib/inputValidation/userRules");
 
 const { validateInputs } = require("../middleware/inputValidation");
 
-const { authenticateToken } = require("../middleware/userValidation");
+const {
+    authenticateToken,
+    adminCheck,
+    userCheck,
+} = require("../middleware/userValidation");
 
 const router = express.Router();
 
@@ -29,7 +34,11 @@ router.post(
     httpAuthenticateUser
 );
 router
-    .use(authenticateToken)
+    .use(authenticateToken, adminCheck, userCheck)
+    .route("/updateReadList")
+    .put(httpSaveBookToReadList);
+router
+    .use(authenticateToken, adminCheck)
     .route("/:id")
     .put(httpUpdateUser)
     .delete(httpDeleteUser);

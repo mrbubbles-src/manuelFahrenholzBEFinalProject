@@ -32,4 +32,15 @@ function adminCheck(req, res, next) {
     }
 }
 
-module.exports = { authenticateToken, adminCheck };
+function userCheck(req, res, next) {
+    const user = req.user;
+    if (user.role === userRoles.USER) {
+        next();
+    } else {
+        const error = new Error("Sie haben keine Berechtigung hierfür");
+        error.statusCode = 403;
+        return next(error);
+    }
+}
+
+module.exports = { authenticateToken, adminCheck, userCheck };
