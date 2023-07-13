@@ -4,9 +4,7 @@ const bcrypt = require("bcrypt");
 const { UserRoles } = require("../lib/security/roles");
 
 const readListSchema = new mongoose.Schema({
-    title: { type: String },
-    author: { type: String },
-    olid: { type: String },
+    book: { type: mongoose.Schema.Types.ObjectId, ref: "Book" },
 });
 
 const userSchema = new mongoose.Schema({
