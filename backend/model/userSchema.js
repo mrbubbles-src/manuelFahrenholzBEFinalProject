@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema({
     role: {
         type: String,
         enum: Object.values(UserRoles),
-        default: userRoles.USER,
+        default: UserRoles.USER,
     },
     readList: [readListSchema],
 });
