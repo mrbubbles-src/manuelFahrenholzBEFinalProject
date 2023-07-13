@@ -6,6 +6,7 @@ const {
     deleteUser,
 } = require("../model/user.model");
 const { createSecurityToken } = require("../lib/security/token");
+
 const secretTokenPW = process.env.TOKEN_SECRET;
 
 async function httpCreateUser(req, res, next) {
