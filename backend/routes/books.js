@@ -11,6 +11,6 @@ router.get("/", httpGetAllBooks);
 
 router.post("/addBooks", httpSaveBook);
 
-router.delete("/deleteBooks", httpDeleteBook);
+router.delete("/deleteBooks/:id", httpDeleteBook);
 
 module.exports = router;

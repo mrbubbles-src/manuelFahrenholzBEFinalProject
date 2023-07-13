@@ -1,5 +1,5 @@
-async function userNotFound(Model, username) {
-    const user = await Model.findOne({ username: username });
+async function userNotFound(Model, id) {
+    const user = await Model.findOne({ _id: id });
 
     if (!user) {
         const error = new Error("Benutzer konnte nicht gefunden werden");
