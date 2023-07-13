@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { UserRoles } = require("../lib/security/roles");
 const { userNotFound } = require("../middleware/errorHandler");
-const User = require("./userSchema");
+const User = require("./user.schema");
 
 async function createUser(userData) {
     return await User.create(userData);
