@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 
 const sign = promisify(jwt.sign);
 
-const createToken = async (payload, secret) => {
+const createSecurityToken = async (payload, secret) => {
     const token = await sign(payload, secret);
     return token;
 };
@@ -20,4 +20,4 @@ const validateToken = async (token, secret) => {
     }
 };
 
-module.exports = { createToken, validateToken };
+module.exports = { createSecurityToken, validateToken };

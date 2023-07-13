@@ -12,18 +12,15 @@ async function authenticateUser(username, password) {
     if (!user) {
         return null;
     }
+
+    const isPasswordValid = await user.authenticate(password);
+
+    if (!isPasswordValid) {
+        return null;
+    }
+
+    return user;
 }
-
-/* Alle User anzeigen*/
-// async function findAllUsers() {
-//     return await User.find({});
-// }
-
-/* einzelne User anzeigen */
-// async function findSingleUser(id) {
-//     await userNotFound(User, id);
-//     return await User.findById(id);
-// }
 
 async function updateUser(id, data) {
     await userNotFound(User);
@@ -45,8 +42,6 @@ module.exports = {
     User,
     createUser,
     authenticateUser,
-    // findAllUsers,
-    // findSingleUser,
     updateUser,
     deleteUser,
 };
