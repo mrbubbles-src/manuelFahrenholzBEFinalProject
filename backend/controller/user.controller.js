@@ -44,8 +44,9 @@ async function httpAuthenticateUser(req, res, next) {
 
 async function httpUpdateUser(req, res, next) {
     try {
-        const { id } = req.params;
+        const { userID: id } = req;
         console.log("updateUserID", req.userID);
+        console.log("const id", id);
         const updatedUser = await updateUser(id, req.body);
         res.json(updatedUser);
     } catch (error) {
@@ -55,7 +56,7 @@ async function httpUpdateUser(req, res, next) {
 
 async function httpDeleteUser(req, res, next) {
     try {
-        const { id } = req.params;
+        const { userID: id } = req;
         await deleteUser(id);
         res.sendStatus(204);
     } catch (error) {

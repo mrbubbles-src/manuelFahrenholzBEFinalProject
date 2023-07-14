@@ -24,7 +24,6 @@ async function authenticateUser(username, password) {
 
 async function updateUser(id, data) {
     await userNotFound(User, id);
-    // rollen abfrage für update von user oder admin rolle
     return await User.findOneAndUpdate({ _id: id }, data, { new: true });
 }
 

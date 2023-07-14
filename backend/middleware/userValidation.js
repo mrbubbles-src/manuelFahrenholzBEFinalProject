@@ -14,7 +14,7 @@ async function authenticateToken(req, res, next) {
     try {
         const decodedToken = await validateToken(token, secretTokenPW);
         req.userID = decodedToken._id;
-        console.log("userID", req.userID);
+        // console.log("userID", req.userID);
         req.user = decodedToken;
         next();
     } catch (error) {
@@ -34,15 +34,4 @@ function adminCheck(req, res, next) {
     }
 }
 
-function userCheck(req, res, next) {
-    const user = req.user;
-    if (user.role === UserRoles.USER) {
-        next();
-    } else {
-        const error = new Error("Sie haben keine Berechtigung hierfür");
-        error.statusCode = 403;
-        return next(error);
-    }
-}
-
-module.exports = { authenticateToken, adminCheck, userCheck };
+module.exports = { authenticateToken, adminCheck };
