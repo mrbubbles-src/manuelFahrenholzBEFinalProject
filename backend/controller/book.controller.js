@@ -1,4 +1,9 @@
-const { saveBook, getAllBooks, deleteBook } = require("../model/book.model");
+const {
+    saveBook,
+    getAllBooks,
+    getSingleBook,
+    deleteBook,
+} = require("../model/book.model");
 
 const secretTokenPW = process.env.TOKEN_SECRET;
 
@@ -21,6 +26,16 @@ async function httpGetAllBooks(req, res) {
     }
 }
 
+async function httpGetSingleBook(req, res) {
+    const { id } = req.params;
+    try {
+        const book = await findById(id);
+        res.status(200).json(book);
+    } catch (error) {
+        res.status(404).json({ message: "Book not found!" });
+    }
+}
+
 async function httpDeleteBook(req, res, next) {
     const { id } = req.params;
     try {
@@ -36,4 +51,9 @@ async function httpDeleteBook(req, res, next) {
     }
 }
 
-module.exports = { httpSaveBook, httpGetAllBooks, httpDeleteBook };
+module.exports = {
+    httpSaveBook,
+    httpGetAllBooks,
+    httpGetSingleBook,
+    httpDeleteBook,
+};

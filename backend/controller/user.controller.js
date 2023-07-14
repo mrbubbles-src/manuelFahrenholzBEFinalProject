@@ -61,7 +61,26 @@ async function httpDeleteUser(req, res, next) {
     }
 }
 
-async function httpSaveBookToReadList(req, res, next) {}
+async function httpSaveBookToReadList(req, res, next) {
+    try {
+        // const {id} = req.params;
+
+        // const createdBooks = await Book.insertMany(bookArray);
+
+        const bookIDs = createdBooks.map((book) => book._id);
+
+        const updatedUsers = userArray.map((user, index) => {
+            user.book = bookIDs[index];
+            return user;
+        });
+
+        await User.insertMany(updatedUsers);
+        // console.log("Beispieldaten erfolgreich eingefügt.");
+        // mongoose.disconnect();
+    } catch (error) {
+        console.error("Fehler beim Einfügen der Beispieldaten:", error);
+    }
+}
 
 module.exports = {
     httpCreateUser,
