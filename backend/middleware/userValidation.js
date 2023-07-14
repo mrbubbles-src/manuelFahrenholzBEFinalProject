@@ -1,5 +1,5 @@
 const { validateToken } = require("../lib/security/token");
-const { userRoles } = require("../lib/security/roles");
+const { UserRoles } = require("../lib/security/roles");
 require("dotenv").config();
 
 const secretTokenPW = process.env.TOKEN_SECRET;
@@ -13,6 +13,8 @@ async function authenticateToken(req, res, next) {
     }
     try {
         const decodedToken = await validateToken(token, secretTokenPW);
+        req.userID = decodedToken._id;
+        console.log("userID", req.userID);
         req.user = decodedToken;
         next();
     } catch (error) {
@@ -23,7 +25,7 @@ async function authenticateToken(req, res, next) {
 
 function adminCheck(req, res, next) {
     const user = req.user;
-    if (user.role === userRoles.ADMIN) {
+    if (user.role === UserRoles.ADMIN) {
         next();
     } else {
         const error = new Error("Sie haben keine Administrationsrechte");
@@ -34,7 +36,7 @@ function adminCheck(req, res, next) {
 
 function userCheck(req, res, next) {
     const user = req.user;
-    if (user.role === userRoles.USER) {
+    if (user.role === UserRoles.USER) {
         next();
     } else {
         const error = new Error("Sie haben keine Berechtigung hierfür");

@@ -38,7 +38,7 @@ router
     .route("/updateReadList")
     .put(httpSaveBookToReadList);
 router
-    .use(authenticateToken, adminCheck)
+    .use(authenticateToken)
     .route("/:id")
     .put(httpUpdateUser)
     .delete(httpDeleteUser);

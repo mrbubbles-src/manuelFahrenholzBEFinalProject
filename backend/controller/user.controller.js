@@ -29,6 +29,7 @@ async function httpAuthenticateUser(req, res, next) {
         }
         const securityToken = await createSecurityToken(
             {
+                _id: user._id,
                 username: user.username,
                 password: user.password,
                 role: user.role,
@@ -44,6 +45,7 @@ async function httpAuthenticateUser(req, res, next) {
 async function httpUpdateUser(req, res, next) {
     try {
         const { id } = req.params;
+        console.log("updateUserID", req.userID);
         const updatedUser = await updateUser(id, req.body);
         res.json(updatedUser);
     } catch (error) {
