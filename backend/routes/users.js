@@ -14,7 +14,6 @@ const { validateInputs } = require("../middleware/inputValidation");
 const {
     authenticateToken,
     adminCheck,
-    userCheck,
 } = require("../middleware/userValidation");
 
 const router = express.Router();
@@ -34,13 +33,12 @@ router.post(
     httpAuthenticateUser
 );
 router
-    .use(authenticateToken, adminCheck, userCheck)
+    .use(authenticateToken)
     .route("/updateReadList")
     .put(httpSaveBookToReadList);
-router
-    .use(authenticateToken)
-    .route("/:id")
-    .put(httpUpdateUser)
-    .delete(httpDeleteUser);
+
+router.use(authenticateToken).route("/updateUser").put(httpUpdateUser);
+
+router.use(authenticateToken).route("/deleteUser").delete(httpDeleteUser);
 
 module.exports = router;
