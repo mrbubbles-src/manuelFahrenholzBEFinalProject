@@ -45,8 +45,8 @@ async function httpAuthenticateUser(req, res, next) {
 async function httpUpdateUser(req, res, next) {
     try {
         const { userID: id } = req;
-        console.log("updateUserID", req.userID);
-        console.log("const id", id);
+        // console.log("updateUserID", req.userID);
+        // console.log("const id", id);
         const updatedUser = await updateUser(id, req.body);
         res.json(updatedUser);
     } catch (error) {
