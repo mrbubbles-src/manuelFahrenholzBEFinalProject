@@ -9,6 +9,15 @@ async function getAllBooks() {
     }
 }
 
+async function getSingleBook(id) {
+    try {
+        const book = await Book.findById(id);
+        return book;
+    } catch (error) {
+        throw new Error(error);
+    }
+}
+
 async function saveBook(bookData) {
     return await Book.create(bookData);
 }
@@ -22,4 +31,4 @@ async function deleteBook(id) {
     }
 }
 
-module.exports = { saveBook, getAllBooks, deleteBook };
+module.exports = { saveBook, getAllBooks, getSingleBook, deleteBook };
