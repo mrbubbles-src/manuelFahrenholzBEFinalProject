@@ -68,15 +68,15 @@ async function httpGetAllBooks(req, res) {
     }
 }
 
-async function httpGetSingleBook(req, res) {
-    const { id } = req.params;
-    try {
-        const book = await findById(id);
-        res.status(200).json(book);
-    } catch (error) {
-        res.status(404).json({ message: "Book not found!" });
-    }
-}
+// async function httpGetSingleBook(req, res) {
+//     const { id } = req.params;
+//     try {
+//         const book = await findById(id);
+//         res.status(200).json(book);
+//     } catch (error) {
+//         res.status(404).json({ message: "Book not found!" });
+//     }
+// }
 
 async function httpDeleteBook(req, res, next) {
     const { id } = req.params;
@@ -96,6 +96,6 @@ async function httpDeleteBook(req, res, next) {
 module.exports = {
     httpSaveBook,
     httpGetAllBooks,
-    httpGetSingleBook,
+    // httpGetSingleBook,
     httpDeleteBook,
 };
