@@ -8,62 +8,6 @@ const {
 const User = require("../model/user.schema");
 const { showReadlist } = require("../model/user.model");
 
-const secretTokenPW = process.env.TOKEN_SECRET;
-
-// async function httpSaveBook(req, res, next) {
-//     try {
-//         const book = req.body;
-
-//         const findBookInDB = await Book.find({ olid: book.olid });
-
-//         if (findBookInDB.length === 0) {
-//             const newBook = await saveBook(book);
-//             const bookID = newBook._id;
-//             const { userID: _userID } = req;
-//             const findUser = await User.findOne({ _id: _userID });
-//             const readlist = findUser.readList;
-
-//             if (readlist.length === 0) {
-//                 readlist.push(bookID);
-//             } else {
-//                 readlist.map((id) => {
-//                     if (id === bookID) {
-//                         console.log("Buch ist bereits auf ihrer Readlist");
-//                         console.log("readlist wenn vorhanden", readlist);
-//                     } else {
-//                         readlist.push(bookID);
-//                         console.log("Buch wurde der Readlist hinzugefügt");
-//                         console.log(
-//                             "readlist wenn noch nicht vorhanden",
-//                             readlist
-//                         );
-//                     }
-//                 });
-//             }
-//         } else {
-//             if (readlist.length === 0) {
-//                 readlist.push(bookID);
-//             } else {
-//                 readlist.map((id) => {
-//                     if (id === bookID) {
-//                         console.log("Buch ist bereits auf ihrer Readlist");
-//                         console.log("readlist wenn vorhanden", readlist);
-//                     } else {
-//                         readlist.push(bookID);
-//                         console.log("Buch wurde der Readlist hinzugefügt");
-//                         console.log(
-//                             "readlist wenn noch nicht vorhanden",
-//                             readlist
-//                         );
-//                     }
-//                 });
-//             }
-//         }
-//         res.json(book);
-//     } catch (error) {
-//         next(error);
-//     }
-// }
 async function httpSaveBook(req, res, next) {
     try {
         // buch daten
