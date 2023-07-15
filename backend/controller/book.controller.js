@@ -6,6 +6,7 @@ const {
     deleteBook,
 } = require("../model/book.model");
 const User = require("../model/user.schema");
+const { showReadlist } = require("../model/user.model");
 
 const secretTokenPW = process.env.TOKEN_SECRET;
 
@@ -107,8 +108,8 @@ async function httpSaveBook(req, res, next) {
             await user.save();
             console.log("Buch wurde der Readlist hinzugefügt");
         }
-
-        res.json(book);
+        const readList = await showReadlist(_userID);
+        res.status(200).json({ title: "Readlist:", readlist: readList });
     } catch (error) {
         next(error);
     }

@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const { UserRoles } = require("../lib/security/roles");
 const { userNotFound } = require("../middleware/errorHandler");
 const User = require("./user.schema");
+// const util = require("util");
 
 async function createUser(userData) {
     return await User.create(userData);
@@ -37,6 +38,20 @@ async function deleteUser(id) {
     }
     await User.findOneAndDelete({ _id: id });
 }
+async function showReadlist(userID) {
+    const user = await User.findOne({ _id: userID })
+        .select("readList")
+        .populate("readList.book", "title author published");
+    const readList = user.readList.map((singleBook) => singleBook.book);
+    // console.log(
+    //     util.inspect(readList, {
+    //         showHidden: false,
+    //         depth: null,
+    //         colors: true,
+    //     })
+    // );
+    return readList;
+}
 
 module.exports = {
     User,
@@ -44,4 +59,5 @@ module.exports = {
     authenticateUser,
     updateUser,
     deleteUser,
+    showReadlist,
 };

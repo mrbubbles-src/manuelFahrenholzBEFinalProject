@@ -4,6 +4,7 @@ const {
     authenticateUser,
     updateUser,
     deleteUser,
+    showReadlist,
 } = require("../model/user.model");
 const { createSecurityToken } = require("../lib/security/token");
 
@@ -62,9 +63,19 @@ async function httpDeleteUser(req, res, next) {
     }
 }
 
+async function httpShowReadList(req, res, next) {
+    try {
+        const { userID: _userID } = req;
+        const readList = await showReadlist(_userID);
+        res.status(200).json(readList);
+    } catch (error) {
+        next(error);
+    }
+}
 module.exports = {
     httpCreateUser,
     httpAuthenticateUser,
     httpUpdateUser,
     httpDeleteUser,
+    httpShowReadList,
 };
