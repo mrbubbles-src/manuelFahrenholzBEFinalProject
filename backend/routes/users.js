@@ -4,7 +4,6 @@ const {
     httpAuthenticateUser,
     httpUpdateUser,
     httpDeleteUser,
-    httpSaveBookToReadList,
 } = require("../controller/user.controller");
 
 const { userValidationRules } = require("../lib/inputValidation/userRules");
@@ -32,10 +31,6 @@ router.post(
     validateInputs(userValidationRules.login),
     httpAuthenticateUser
 );
-router
-    .use(authenticateToken)
-    .route("/updateReadList")
-    .put(httpSaveBookToReadList);
 
 router.use(authenticateToken).route("/updateUser").put(httpUpdateUser);
 

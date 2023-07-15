@@ -14,7 +14,6 @@ async function authenticateToken(req, res, next) {
     try {
         const decodedToken = await validateToken(token, secretTokenPW);
         req.userID = decodedToken._id;
-        // console.log("userID", req.userID);
         req.user = decodedToken;
         next();
     } catch (error) {

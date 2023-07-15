@@ -4,12 +4,13 @@ const {
     httpSaveBook,
     httpDeleteBook,
 } = require("../controller/book.controller");
+const { authenticateToken } = require("../middleware/userValidation");
 
 const router = express.Router();
 
 router.get("/", httpGetAllBooks);
 
-router.post("/addBooks", httpSaveBook);
+router.post("/addBooks", authenticateToken, httpSaveBook);
 
 router.delete("/deleteBooks/:id", httpDeleteBook);
 
