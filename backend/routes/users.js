@@ -3,7 +3,8 @@ const {
     httpCreateUser,
     httpAuthenticateUser,
     httpUpdateUser,
-    httpDeleteUser,
+    httpAdminDeleteUser,
+    httpUserDeleteSelf,
     httpShowReadList,
 } = require("../controller/user.controller");
 
@@ -54,8 +55,10 @@ router.delete(
 
 router.get("/getReadlist", authenticateToken, httpShowReadList);
 
-router.use(authenticateToken).route("/updateUser").put(httpUpdateUser);
+router.put("/updateUser", authenticateToken, httpUpdateUser);
 
-router.use(authenticateToken).route("/deleteUser").delete(httpDeleteUser);
+router.delete("/adminDeleteUser/:id", authenticateToken, httpAdminDeleteUser);
+
+router.delete("/userDeleteSelf", authenticateToken, httpUserDeleteSelf);
 
 module.exports = router;

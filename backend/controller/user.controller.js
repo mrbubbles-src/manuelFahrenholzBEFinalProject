@@ -3,7 +3,8 @@ const {
     createUser,
     authenticateUser,
     updateUser,
-    deleteUser,
+    adminDeleteUser,
+    userDeleteSelf,
     showReadlist,
 } = require("../model/user.model");
 const { createSecurityToken } = require("../lib/security/token");
@@ -53,11 +54,21 @@ async function httpUpdateUser(req, res, next) {
     }
 }
 
-async function httpDeleteUser(req, res, next) {
+async function httpUserDeleteSelf(req, res, next) {
     try {
         const { userID: id } = req;
-        await deleteUser(id);
-        res.sendStatus(204);
+        console.log(id);
+        await userDeleteSelf(id);
+        res.sendStatus(200).json({ message: "Benutzer gelöscht" });
+    } catch (error) {
+        next(error);
+    }
+}
+async function httpAdminDeleteUser(req, res, next) {
+    try {
+        const { id } = req.params;
+        await adminDeleteUser(id);
+        res.sendStatus(200).json({ message: "Benutzer gelöscht" });
     } catch (error) {
         next(error);
     }
@@ -76,6 +87,7 @@ module.exports = {
     httpCreateUser,
     httpAuthenticateUser,
     httpUpdateUser,
-    httpDeleteUser,
+    httpUserDeleteSelf,
+    httpAdminDeleteUser,
     httpShowReadList,
 };
