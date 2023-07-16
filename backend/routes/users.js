@@ -18,6 +18,7 @@ const {
 const {
     httpSaveBook,
     httpAdminDeleteBookFromDb,
+    httpDeleteBookFromReadlist,
 } = require("../controller/book.controller");
 
 const router = express.Router();
@@ -40,10 +41,15 @@ router.post(
 router.post("/addBooks", authenticateToken, httpSaveBook);
 
 router.delete(
-    "/deleteBookfromDb/:id",
+    "/deleteBookFromDb/:id",
     authenticateToken,
     adminCheck,
     httpAdminDeleteBookFromDb
+);
+router.delete(
+    "/deleteBookFromReadlist/:bookID",
+    authenticateToken,
+    httpDeleteBookFromReadlist
 );
 
 router.get("/getReadlist", authenticateToken, httpShowReadList);

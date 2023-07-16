@@ -85,7 +85,7 @@ async function httpAdminDeleteBookFromDb(req, res, next) {
         const deletedBook = await adminDeleteBookFromDb(id);
         res.status(204).json({
             message: "Buchdaten wurden aus der Datenbank gelöscht.",
-            deletedBook: deletedBook,
+            bookDeleted: deletedBook,
         });
     } catch (error) {
         res.status(404).json({
@@ -95,14 +95,17 @@ async function httpAdminDeleteBookFromDb(req, res, next) {
 }
 
 async function httpDeleteBookFromReadlist(req, res, next) {
-    const { id } = req.params;
+    const { userID: _userID } = req;
+    const { bookID } = req.params;
+
     try {
-        const deletedBook = await deleteBookFromReadlist(id);
+        const deletedBook = await deleteBookFromReadlist(_userID, bookID);
         res.status(204).json({
             message: "Buch wurde aus der Leseliste gelöscht.",
-            deletedBook: deletedBook,
+            bookDeleted: deletedBook,
         });
     } catch (error) {
+        console.log(error);
         res.status(404).json({
             message: "Buch konnte nicht in der Leseliste gefunden werden.",
         });
