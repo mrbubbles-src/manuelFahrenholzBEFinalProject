@@ -78,6 +78,21 @@ async function httpGetAllBooks(req, res) {
 //     }
 // }
 
+async function httpAdminDeleteBookFromDb(req, res, next) {
+    const { id } = req.params;
+    try {
+        const deletedBook = await deleteBook(id);
+        res.status(204).json({
+            message: "Buchdaten wurden gelöscht.",
+            deletedBook: deletedBook,
+        });
+    } catch (error) {
+        res.status(404).json({
+            message: "Buch nicht gefunden",
+        });
+    }
+}
+
 async function httpDeleteBook(req, res, next) {
     const { id } = req.params;
     try {
@@ -97,5 +112,6 @@ module.exports = {
     httpSaveBook,
     httpGetAllBooks,
     // httpGetSingleBook,
+    httpAdminDeleteBookFromDb,
     httpDeleteBook,
 };

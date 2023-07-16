@@ -17,7 +17,7 @@ const {
 } = require("../middleware/userValidation");
 const {
     httpSaveBook,
-    httpDeleteBook,
+    httpAdminDeleteBookFromDb,
 } = require("../controller/book.controller");
 
 const router = express.Router();
@@ -39,7 +39,12 @@ router.post(
 
 router.post("/addBooks", authenticateToken, httpSaveBook);
 
-router.delete("/deleteBooks", httpDeleteBook);
+router.delete(
+    "/deleteBookfromDb/:id",
+    authenticateToken,
+    adminCheck,
+    httpAdminDeleteBookFromDb
+);
 
 router.get("/getReadlist", authenticateToken, httpShowReadList);
 
