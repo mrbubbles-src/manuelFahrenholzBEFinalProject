@@ -3,7 +3,8 @@ const {
     httpCreateUser,
     httpAuthenticateUser,
     httpUpdateUser,
-    httpDeleteUser,
+    httpAdminDeleteUser,
+    httpUserDeleteSelf,
     httpShowReadList,
 } = require("../controller/user.controller");
 
@@ -17,7 +18,8 @@ const {
 } = require("../middleware/userValidation");
 const {
     httpSaveBook,
-    httpDeleteBook,
+    httpAdminDeleteBookFromDb,
+    httpDeleteBookFromReadlist,
 } = require("../controller/book.controller");
 
 const router = express.Router();
@@ -39,12 +41,24 @@ router.post(
 
 router.post("/addBooks", authenticateToken, httpSaveBook);
 
-router.delete("/deleteBooks", httpDeleteBook);
+router.delete(
+    "/deleteBookFromDb/:id",
+    authenticateToken,
+    adminCheck,
+    httpAdminDeleteBookFromDb
+);
+router.delete(
+    "/deleteBookFromReadlist/:bookID",
+    authenticateToken,
+    httpDeleteBookFromReadlist
+);
 
 router.get("/getReadlist", authenticateToken, httpShowReadList);
 
-router.use(authenticateToken).route("/updateUser").put(httpUpdateUser);
+router.put("/updateUser", authenticateToken, httpUpdateUser);
 
-router.use(authenticateToken).route("/deleteUser").delete(httpDeleteUser);
+router.delete("/adminDeleteUser/:id", authenticateToken, httpAdminDeleteUser);
+
+router.delete("/userDeleteSelf", authenticateToken, httpUserDeleteSelf);
 
 module.exports = router;

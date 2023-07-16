@@ -28,16 +28,28 @@ async function updateUser(id, data) {
     return await User.findOneAndUpdate({ _id: id }, data, { new: true });
 }
 
-async function deleteUser(id) {
+async function userDeleteSelf(id) {
+    await userNotFound(User, id);
+
+    // if (user.role !== UserRoles.ADMIN) {
+    //     const error = new Error("Unzurreichende Berechtigungen");
+    //     error.statusCode = 403;
+    //     throw error;
+    // }
+    return await User.findOneAndDelete({ _id: id });
+}
+
+async function adminDeleteUser(id) {
     const user = await userNotFound(User, id);
 
     if (user.role !== UserRoles.ADMIN) {
-        const error = new Error("Unzurreichende Berechtigungen");
+        const error = new Error("Unzureichende Berechtigungen");
         error.statusCode = 403;
         throw error;
     }
     await User.findOneAndDelete({ _id: id });
 }
+
 async function showReadlist(userID) {
     const user = await User.findOne({ _id: userID })
         .select("readList")
@@ -58,6 +70,7 @@ module.exports = {
     createUser,
     authenticateUser,
     updateUser,
-    deleteUser,
+    adminDeleteUser,
+    userDeleteSelf,
     showReadlist,
 };
