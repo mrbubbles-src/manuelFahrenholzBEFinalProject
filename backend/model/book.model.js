@@ -20,7 +20,11 @@ async function getSingleBook(id) {
 }
 
 async function saveBook(bookData) {
-    return await Book.create(bookData);
+    try {
+        return await Book.create(bookData);
+    } catch (error) {
+        throw error;
+    }
 }
 
 async function adminDeleteBookFromDb(id) {
