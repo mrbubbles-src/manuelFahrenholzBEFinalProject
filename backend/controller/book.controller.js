@@ -24,15 +24,17 @@ async function httpSaveBook(req, res, next) {
 
         // abfrage ob buch bereits in buch collection ist
         if (existingBook) {
-            console.log("buch vorhanden");
             // wenn buch vorhanden ist, wird dessen mongoDB_id in bookID abgespeichert
             bookID = existingBook._id;
+            console.log("Das Buch ist bereits in der Datenbank vorhanden.");
         } else {
-            console.log("buch noch nicht vorhanden");
             // wenn buch nicht vorhanden ist, wird es erstellt
             const newBook = await saveBook(book);
             // mongoDB_id vom neuerstelltem buch wir in bookID abgespeichert
             bookID = newBook._id;
+            console.log(
+                "Das Buch wurde erfolgreich in der Datenbank gespeichert."
+            );
         }
 
         // user anhand von _id aus dem token finden
@@ -53,8 +55,13 @@ async function httpSaveBook(req, res, next) {
             await user.save();
             console.log("Buch wurde der Readlist hinzugefügt");
         }
+        // readlist des users erhalten
         const readList = await showReadlist(_userID);
-        res.status(200).json({ title: "Readlist:", readlist: readList });
+        // response
+        res.status(200).json({
+            title: `${user.username}'s Leseliste:`,
+            readlist: readList,
+        });
     } catch (error) {
         next(error);
     }
@@ -63,7 +70,10 @@ async function httpSaveBook(req, res, next) {
 async function httpGetAllBooks(req, res) {
     try {
         const books = await getAllBooks();
-        res.status(200).json(books);
+        res.status(200).json({
+            title: "List of all books in the database:",
+            booksInDb: books,
+        });
     } catch (error) {
         res.status(200).json([]);
     }

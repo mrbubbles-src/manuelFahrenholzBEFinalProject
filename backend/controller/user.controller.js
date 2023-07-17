@@ -59,7 +59,7 @@ async function httpUserDeleteSelf(req, res, next) {
         const { userID: id } = req;
         console.log(id);
         await userDeleteSelf(id);
-        res.sendStatus(200).json({ message: "Benutzer gelöscht" });
+        res.status(200).json({ message: "Benutzer gelöscht" });
     } catch (error) {
         next(error);
     }
@@ -68,9 +68,9 @@ async function httpAdminDeleteUser(req, res, next) {
     try {
         const { id } = req.params;
         await adminDeleteUser(id);
-        res.sendStatus(200).json({ message: "Benutzer gelöscht" });
+        res.status(200).json({ message: "Benutzer gelöscht" });
     } catch (error) {
-        next(error);
+        return next(error);
     }
 }
 
