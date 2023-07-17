@@ -97,7 +97,7 @@ Authorization
 
 > Paste the token you got during your log in as the VALUE of 'Authorization'
 
-#### Update your password
+#### Update your credentials
 
 Create a PUT request
 
@@ -116,7 +116,7 @@ Authorization
 Body => Form-encode:
 
 ```
-password
+password/email etc
 ```
 
 > add your new password to the VALUE field
