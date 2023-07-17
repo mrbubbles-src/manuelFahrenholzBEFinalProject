@@ -1,4 +1,4 @@
-async function userNotFound(Model, id) {
+async function findUserInDb(Model, id) {
     const user = await Model.findOne({ _id: id });
     if (!user) {
         const error = new Error("Benutzer konnte nicht gefunden werden");
@@ -16,4 +16,4 @@ function errorHandler(err, req, res, next) {
     });
 }
 
-module.exports = { userNotFound, errorHandler };
+module.exports = { findUserInDb, errorHandler };
