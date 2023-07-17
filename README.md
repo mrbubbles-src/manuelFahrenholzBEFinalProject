@@ -287,3 +287,7 @@ Authorization
 -   [Jacqueline Scharrer-Weißgerber](https://github.com/jacqueline-s-w)
 
 -   [Manuel Fahrenholz](https://github.com/mrbubbles-src)
+
+### Infographic, how a book is saved to the readlist/collection
+
+![bookToList](./book%20to%20list.png)
