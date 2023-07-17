@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const Book = require("./book.schema");
 const User = require("./user.schema");
 
+// alle Bücher in Datenbank finden
 async function getAllBooks() {
     try {
         return await Book.find({});
@@ -10,19 +11,16 @@ async function getAllBooks() {
     }
 }
 
-async function getSingleBook(id) {
+// einzelnes Buch mit Buchdaten speichern
+async function saveBook(bookData) {
     try {
-        const book = await Book.findById(id);
-        return book;
+        return await Book.create(bookData);
     } catch (error) {
-        throw new Error(error);
+        throw error;
     }
 }
 
-async function saveBook(bookData) {
-    return await Book.create(bookData);
-}
-
+// Admin löscht Buch aus Datenbank
 async function adminDeleteBookFromDb(id) {
     try {
         const book = await Book.findByIdAndRemove(id);
@@ -31,6 +29,8 @@ async function adminDeleteBookFromDb(id) {
         throw new Error(error);
     }
 }
+
+// User löscht Buch aus Readlist
 async function deleteBookFromReadlist(userID, bookID) {
     try {
         const user = await User.findOne({ _id: userID });
@@ -41,7 +41,6 @@ async function deleteBookFromReadlist(userID, bookID) {
             const updatedReadlist = userReadlist.filter(
                 (bookInList) => bookInList.book.toString() !== bookID
             );
-            // console.log(updatedReadlist);
             user.readList = updatedReadlist;
             await user.save();
         }
@@ -52,7 +51,6 @@ async function deleteBookFromReadlist(userID, bookID) {
 module.exports = {
     saveBook,
     getAllBooks,
-    getSingleBook,
     adminDeleteBookFromDb,
     deleteBookFromReadlist,
 };

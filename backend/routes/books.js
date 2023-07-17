@@ -1,9 +1,12 @@
 const express = require("express");
 const { httpGetAllBooks } = require("../controller/book.controller");
-// const { authenticateToken } = require("../middleware/userValidation");
+const {
+    authenticateToken,
+    adminCheck,
+} = require("../middleware/userValidation");
 
 const router = express.Router();
 
-router.get("/", httpGetAllBooks);
+router.get("/", authenticateToken, adminCheck, httpGetAllBooks);
 
 module.exports = router;

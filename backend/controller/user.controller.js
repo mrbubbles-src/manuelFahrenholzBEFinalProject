@@ -11,6 +11,8 @@ const { createSecurityToken } = require("../lib/security/token");
 
 const secretTokenPW = process.env.TOKEN_SECRET;
 
+// User erstellen/ neu registrieren
+
 async function httpCreateUser(req, res, next) {
     try {
         const userData = req.body;
@@ -20,6 +22,8 @@ async function httpCreateUser(req, res, next) {
         next(error);
     }
 }
+
+// User authentifizieren
 async function httpAuthenticateUser(req, res, next) {
     try {
         const { username, password } = req.body;
@@ -44,6 +48,7 @@ async function httpAuthenticateUser(req, res, next) {
     }
 }
 
+// User updaten
 async function httpUpdateUser(req, res, next) {
     try {
         const { userID: id } = req;
@@ -54,26 +59,33 @@ async function httpUpdateUser(req, res, next) {
     }
 }
 
+// Benutzer löschen
 async function httpUserDeleteSelf(req, res, next) {
     try {
         const { userID: id } = req;
         console.log(id);
         await userDeleteSelf(id);
-        res.sendStatus(200).json({ message: "Benutzer gelöscht" });
-    } catch (error) {
-        next(error);
-    }
-}
-async function httpAdminDeleteUser(req, res, next) {
-    try {
-        const { id } = req.params;
-        await adminDeleteUser(id);
-        res.sendStatus(200).json({ message: "Benutzer gelöscht" });
+        res.status(200).json({ message: "Benutzer gelöscht" });
     } catch (error) {
         next(error);
     }
 }
 
+// Admin löscht User
+async function httpAdminDeleteUser(req, res, next) {
+    try {
+        const { id } = req.params;
+        const user = await adminDeleteUser(id);
+        res.status(200).json({
+            message: "Benutzer gelöscht",
+            deletedUser: user,
+        });
+    } catch (error) {
+        return next(error);
+    }
+}
+
+// Lesenliste anzeigen lassen
 async function httpShowReadList(req, res, next) {
     try {
         const { userID: _userID } = req;

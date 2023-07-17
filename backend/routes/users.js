@@ -57,7 +57,12 @@ router.get("/getReadlist", authenticateToken, httpShowReadList);
 
 router.put("/updateUser", authenticateToken, httpUpdateUser);
 
-router.delete("/adminDeleteUser/:id", authenticateToken, httpAdminDeleteUser);
+router.delete(
+    "/adminDeleteUser/:id",
+    authenticateToken,
+    adminCheck,
+    httpAdminDeleteUser
+);
 
 router.delete("/userDeleteSelf", authenticateToken, httpUserDeleteSelf);
 

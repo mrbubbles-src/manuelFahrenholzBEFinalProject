@@ -5,8 +5,12 @@ const jwt = require("jsonwebtoken");
 const sign = promisify(jwt.sign);
 
 const createSecurityToken = async (payload, secret) => {
-    const token = await sign(payload, secret);
-    return token;
+    try {
+        const token = await sign(payload, secret);
+        return token;
+    } catch (error) {
+        throw new Error("Token could not be created", error);
+    }
 };
 
 const verify = promisify(jwt.verify);

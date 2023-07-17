@@ -1,68 +1,82 @@
 const mongoose = require("mongoose");
 const { UserRoles } = require("../lib/security/roles");
-const { userNotFound } = require("../middleware/errorHandler");
+const { findUserInDb } = require("../middleware/errorHandler");
 const User = require("./user.schema");
-// const util = require("util");
 
+// user erstellen
 async function createUser(userData) {
-    return await User.create(userData);
-}
-
-async function authenticateUser(username, password) {
-    const user = await User.findOne({ username });
-    if (!user) {
-        return null;
-    }
-
-    const isPasswordValid = await user.authenticate(password);
-
-    if (!isPasswordValid) {
-        return null;
-    }
-
-    return user;
-}
-
-async function updateUser(id, data) {
-    await userNotFound(User, id);
-    return await User.findOneAndUpdate({ _id: id }, data, { new: true });
-}
-
-async function userDeleteSelf(id) {
-    await userNotFound(User, id);
-
-    // if (user.role !== UserRoles.ADMIN) {
-    //     const error = new Error("Unzurreichende Berechtigungen");
-    //     error.statusCode = 403;
-    //     throw error;
-    // }
-    return await User.findOneAndDelete({ _id: id });
-}
-
-async function adminDeleteUser(id) {
-    const user = await userNotFound(User, id);
-
-    if (user.role !== UserRoles.ADMIN) {
-        const error = new Error("Unzureichende Berechtigungen");
-        error.statusCode = 403;
+    try {
+        return await User.create(userData);
+    } catch (error) {
         throw error;
     }
-    await User.findOneAndDelete({ _id: id });
 }
 
+// User authentifizieren
+async function authenticateUser(username, password) {
+    try {
+        const user = await User.findOne({ username });
+        if (!user) {
+            return null;
+        }
+
+        const isPasswordValid = await user.authenticate(password);
+
+        if (!isPasswordValid) {
+            return null;
+        }
+
+        return user;
+    } catch (error) {
+        throw error;
+    }
+}
+
+// User updaten
+async function updateUser(id, data) {
+    try {
+        await findUserInDb(User, id);
+        return await User.findOneAndUpdate({ _id: id }, data, { new: true });
+    } catch (error) {
+        throw error;
+    }
+}
+
+// user löscht sich
+async function userDeleteSelf(id) {
+    try {
+        await findUserInDb(User, id);
+        await User.findOneAndDelete({ _id: id });
+    } catch (error) {
+        throw error;
+    }
+}
+
+// Admin löscht User
+async function adminDeleteUser(id) {
+    try {
+        const user = await findUserInDb(User, id);
+        await User.findOneAndDelete({ _id: id });
+        return user;
+    } catch (error) {
+        throw error;
+    }
+}
+
+// Leseliste anzeigen lassen (User)
 async function showReadlist(userID) {
-    const user = await User.findOne({ _id: userID })
-        .select("readList")
-        .populate("readList.book", "title author published");
-    const readList = user.readList.map((singleBook) => singleBook.book);
-    // console.log(
-    //     util.inspect(readList, {
-    //         showHidden: false,
-    //         depth: null,
-    //         colors: true,
-    //     })
-    // );
-    return readList;
+    try {
+        const user = await User.findOne({ _id: userID })
+            .select("username readList")
+            .populate("readList.book", "title author published");
+        const readList = user.readList.map((singleBook) => singleBook.book);
+        return {
+            title: `Hier ist deine Leseliste, ${user.username}:`,
+            usersReadlist: readList,
+        };
+    } catch (error) {
+        throw error;
+    }
 }
 
 module.exports = {
