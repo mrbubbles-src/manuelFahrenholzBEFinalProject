@@ -2,6 +2,7 @@ require("dotenv").config();
 const {
     createUser,
     authenticateUser,
+    adminGetAllUsers,
     updateUser,
     adminDeleteUser,
     userDeleteSelf,
@@ -47,7 +48,11 @@ async function httpAuthenticateUser(req, res, next) {
         next(error);
     }
 }
-
+// alle nutzer aus der db anzeigen
+async function httpAdminGetAllUsers(req, res, next) {
+    const users = await adminGetAllUsers();
+    res.json(users);
+}
 // User updaten
 async function httpUpdateUser(req, res, next) {
     try {
@@ -98,6 +103,7 @@ async function httpShowReadList(req, res, next) {
 module.exports = {
     httpCreateUser,
     httpAuthenticateUser,
+    httpAdminGetAllUsers,
     httpUpdateUser,
     httpUserDeleteSelf,
     httpAdminDeleteUser,

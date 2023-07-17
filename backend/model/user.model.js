@@ -32,6 +32,11 @@ async function authenticateUser(username, password) {
     }
 }
 
+// alle user anzeigen
+async function adminGetAllUsers() {
+    return await User.find({});
+}
+
 // User updaten
 async function updateUser(id, data) {
     try {
@@ -83,6 +88,7 @@ module.exports = {
     User,
     createUser,
     authenticateUser,
+    adminGetAllUsers,
     updateUser,
     adminDeleteUser,
     userDeleteSelf,

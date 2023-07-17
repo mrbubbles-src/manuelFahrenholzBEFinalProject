@@ -2,6 +2,7 @@ const express = require("express");
 const {
     httpCreateUser,
     httpAuthenticateUser,
+    httpAdminGetAllUsers,
     httpUpdateUser,
     httpAdminDeleteUser,
     httpUserDeleteSelf,
@@ -52,7 +53,12 @@ router.delete(
     authenticateToken,
     httpDeleteBookFromReadlist
 );
-
+router.get(
+    "/adminGetAllUsers",
+    authenticateToken,
+    adminCheck,
+    httpAdminGetAllUsers
+);
 router.get("/getReadlist", authenticateToken, httpShowReadList);
 
 router.put("/updateUser", authenticateToken, httpUpdateUser);
