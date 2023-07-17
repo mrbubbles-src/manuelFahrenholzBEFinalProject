@@ -9,6 +9,8 @@ const {
     httpShowReadList,
 } = require("../controller/user.controller");
 
+const { httpDeleteBookFromReadlist } = require("../controller/book.controller");
+
 const { userValidationRules } = require("../lib/inputValidation/userRules");
 
 const { validateInputs } = require("../middleware/inputValidation");
@@ -35,15 +37,24 @@ router.post(
     httpAuthenticateUser
 );
 
+router.put("/updateUser", authenticateToken, httpUpdateUser);
+
+router.delete("/userDeleteSelf", authenticateToken, httpUserDeleteSelf);
+
+router.get("/getReadlist", authenticateToken, httpShowReadList);
+
+router.delete(
+    "/deleteBookFromReadlist/:bookID",
+    authenticateToken,
+    httpDeleteBookFromReadlist
+);
+
 router.get(
     "/adminGetAllUsers",
     authenticateToken,
     adminCheck,
     httpAdminGetAllUsers
 );
-router.get("/getReadlist", authenticateToken, httpShowReadList);
-
-router.put("/updateUser", authenticateToken, httpUpdateUser);
 
 router.delete(
     "/adminDeleteUser/:id",
@@ -51,7 +62,5 @@ router.delete(
     adminCheck,
     httpAdminDeleteUser
 );
-
-router.delete("/userDeleteSelf", authenticateToken, httpUserDeleteSelf);
 
 module.exports = router;

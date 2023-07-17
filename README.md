@@ -55,13 +55,13 @@ password
 
 > You will get a token at the bottom of the response. Copy the token, you will need that soon
 
-#### Save a book to your readlist
+#### Save a book to your readlist (and the collection if it's not already in it)
 
 Create a POST request
 
 Route:
 
-`https://be-final-group-project-bookt-jacky-manu.onrender.com/users/addBooks`
+`https://be-final-group-project-bookt-jacky-manu.onrender.com/books/addBooks`
 
 Headers =>
 
@@ -236,7 +236,7 @@ Create a DELETE request
 
 Route:
 
-`https://be-final-group-project-bookt-jacky-manu.onrender.com/users/adminDeleteUser/:id`
+`https://be-final-group-project-bookt-jacky-manu.onrender.com/books/adminDeleteUser/:id`
 
 Instead of `:id`, you paste the `_id` of the respective book you want to remove from your list. Similar to the way you delete a book from your readlist, you will see the `_id` inside the response you get when you get your readlist or get all books.
 
