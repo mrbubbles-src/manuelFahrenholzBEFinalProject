@@ -8,6 +8,12 @@ Sign up and save books to a personalized readlist only you have access to!
 
 ### How to
 
+**In the Terminal in side the backend directory:**
+
+`npm start`
+
+`npm run dev`
+
 **_In Thunder Client:_**
 
 ### As a USER
