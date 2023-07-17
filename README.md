@@ -266,7 +266,7 @@ Route:
 
 `https://be-final-group-project-bookt-jacky-manu.onrender.com/adminDeleteUser/:id`
 
-Instead of `:id`, you paste the `_id` of the respective book you want to remove from your list. You will see the `_id` inside the response you get when you get all books.
+Instead of `:id`, you paste the `_id` of the respective user you want to remove from your list. You will see the `_id` inside the response you get when you get all users.
 
 Headers =>
 
