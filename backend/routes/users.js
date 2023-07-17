@@ -17,11 +17,6 @@ const {
     authenticateToken,
     adminCheck,
 } = require("../middleware/userValidation");
-const {
-    httpSaveBook,
-    httpAdminDeleteBookFromDb,
-    httpDeleteBookFromReadlist,
-} = require("../controller/book.controller");
 
 const router = express.Router();
 
@@ -40,19 +35,6 @@ router.post(
     httpAuthenticateUser
 );
 
-router.post("/addBooks", authenticateToken, httpSaveBook);
-
-router.delete(
-    "/deleteBookFromDb/:id",
-    authenticateToken,
-    adminCheck,
-    httpAdminDeleteBookFromDb
-);
-router.delete(
-    "/deleteBookFromReadlist/:bookID",
-    authenticateToken,
-    httpDeleteBookFromReadlist
-);
 router.get(
     "/adminGetAllUsers",
     authenticateToken,
