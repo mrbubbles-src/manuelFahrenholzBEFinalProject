@@ -288,6 +288,12 @@ Authorization
 
 -   [Manuel Fahrenholz](https://github.com/mrbubbles-src)
 
-### Infographic, how a book is saved to the readlist/collection
+### Infographics
+
+##### Authorization
+
+![authorization](./authorization.png)
+
+##### Saving book to readlist/db
 
 ![bookToList](./book%20to%20list.png)
